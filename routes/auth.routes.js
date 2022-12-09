@@ -18,6 +18,7 @@ const saltRounds = 10;
 
 // POST /auth/signup  - Creates a new user in the database
 router.post("/signup", (req, res, next) => {
+  console.log("hey", req.body)
   const { email, password, name } = req.body;
 
   // Check if email or password or name are provided as empty strings
@@ -34,7 +35,7 @@ router.post("/signup", (req, res, next) => {
   }
 
   // This regular expression checks password for special characters and minimum length
-  const passwordRegex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/;
+  /* const passwordRegex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/;
   if (!passwordRegex.test(password)) {
     res.status(400).json({
       message:
@@ -42,7 +43,7 @@ router.post("/signup", (req, res, next) => {
     });
     return;
   }
-
+ */
   // Check the users collection if a user with the same email already exists
   User.findOne({ email })
     .then((foundUser) => {
