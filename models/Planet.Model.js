@@ -9,7 +9,7 @@ const PlanetSchema = new Schema(
     distanceSun: String,
     day: String,
     year: String,
-    price: String,
+    planetPrice: Number,
     img: String
   },
   {
