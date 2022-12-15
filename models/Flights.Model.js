@@ -1,4 +1,5 @@
 const { Schema, model } = require("mongoose");
+const mongoose = require("mongoose");
 
 const FlightsSchema = new Schema({
   departure: {
@@ -21,6 +22,15 @@ const FlightsSchema = new Schema({
   TravelClass: {
     type: String,
   },
+  planet: {
+    type: Schema.Types.ObjectId,
+    ref: "Planet"
+  },
+  user: {
+    type: Schema.Types.ObjectId,
+    ref: "User",
+  },
+
 });
 
 module.exports = model("Flights", FlightsSchema);
