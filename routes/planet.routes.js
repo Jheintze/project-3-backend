@@ -56,11 +56,7 @@ router.put("/planets/:planetId", (req, res, next) => {
 router.delete("/planets/:planetId", (req, res, next) => {
   const { planetId } = req.params;
 
-  if (!mongoose.Types.ObjectId.isValid(planetId)) {
-    res.status(400).json({ message: "Specified id is not valid" });
-    return;
-  }
-
+ 
   Planet.findByIdAndRemove(planetId)
     .then(() =>
       res.json({
