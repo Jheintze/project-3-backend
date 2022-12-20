@@ -12,13 +12,13 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 // ℹ️ This function is getting exported from the config folder. It runs most pieces of middleware
-require("./config")(app);
-app.use(
-    cors({
-      credentials: true,
-      origin: "*"
-    })
-  );
+// require("./config")(app);
+// app.use(
+//     cors({
+//       credentials: true,
+//       origin: "*"
+//     })
+//   );
 // 👇 Start handling routes here
 const indexRoutes = require("./routes/index.routes");
 app.use("/api", indexRoutes);
@@ -35,5 +35,12 @@ app.use("/api", flightRoutes);
 
 // ❗ To handle errors. Routes that don't exist or errors that you handle in specific routes
 require("./error-handling")(app);
+
+// app.use(
+//   cors({
+//     origin: process.env.FRONTEND_URL,
+//     credentials: true
+//   })
+// );
 
 module.exports = app;

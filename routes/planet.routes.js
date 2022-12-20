@@ -6,9 +6,9 @@ const Planet = require("../models/Planet.Model");
 
 //  POST /api/planets  -  Creates a new planet
 router.post("/planets", (req, res, next) => {
-  const { name, type, weather, distanceSun, day, year , price, img } = req.body;
+  const { name, type, weather, description,  day, year , price, img } = req.body;
 
-  Planet.create({ name, type, weather, distanceSun, day, year , price, img })
+  Planet.create({ name, type, weather, description,  day, year , price, img })
     .then((response) => res.json(response))
     .catch((err) => res.json(err));
 });
