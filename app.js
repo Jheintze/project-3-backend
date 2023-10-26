@@ -17,12 +17,12 @@ const cors = require("cors");
 // ℹ️ This function is getting exported from the config folder. It runs most pieces of middleware
 require("./config")(app);
 
-// app.use(
-//     cors({
-//       credentials: true,
-//       origin: "*"
-//     })
-//   );
+app.use(
+    cors({
+      credentials: true,
+      origin: "*"
+    })
+  );
 
 // 👇 Start handling routes here
 const indexRoutes = require("./routes/index.routes");
@@ -44,7 +44,8 @@ require("./error-handling")(app);
 // app.use(
 //   cors({
 //     origin: process.env.FRONTEND_URL,
-//     credentials: true
+//     credentials: true,
+//     origin: "*"
 //   })
 // );
 
