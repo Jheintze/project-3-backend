@@ -23,6 +23,7 @@ require("./config")(app);
 //       origin: "*"
 //     })
 //   );
+
 // 👇 Start handling routes here
 const indexRoutes = require("./routes/index.routes");
 app.use("/api", indexRoutes);
