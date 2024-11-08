@@ -35,12 +35,24 @@ require("./config")(app);
 //     credentials: true, // Allow credentials (cookies, tokens, etc.)
 //   })
 // );
+// app.use(
+//   cors({
+//     origin: "https://nextleveltravel.netlify.app",
+//     credentials: true,
+//   })
+// );
 app.use(
   cors({
-    origin: "https://nextleveltravel.netlify.app",
-    credentials: true,
+    origin: "*", // Allow all origins temporarily
+    credentials: true, // Allow credentials
   })
 );
+app.get("/test", (req, res) => {
+  res.setHeader("Access-Control-Allow-Origin", "*"); // Allow all origins
+  res.setHeader("Access-Control-Allow-Credentials", "true"); // Allow credentials
+  res.json({ message: "CORS test route works!" });
+});
+
 
 app.use((err, req, res, next) => {
   console.error(err); // Log the error details
