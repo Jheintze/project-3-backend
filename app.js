@@ -42,6 +42,10 @@ app.use(
   })
 );
 
+app.use((err, req, res, next) => {
+  console.error(err); // Log the error details
+  res.status(500).json({ message: "Internal server error", error: err });
+});
 
 app.options("*", cors());
 
