@@ -5,26 +5,70 @@ require("dotenv").config();
 // ℹ️ Connects to the database
 require("./db");
 
+// ℹ️ This function is getting exported from the config folder. It runs most pieces of middleware
+require("./config")(app);
+
 // Handles http requests (express is node js framework)
 // https://www.npmjs.com/package/express
 const express = require("express");
-
 const app = express();
-
-
 const cors = require("cors");
 
 // ℹ️ This function is getting exported from the config folder. It runs most pieces of middleware
 require("./config")(app);
 
 
+
+
+// Set the origin dynamically based on the environment
+const allowedOrigins =
+  process.env.NODE_ENV === "production"
+    ? "https://nextleveltravel.netlify.app" // production URL
+    : "http://localhost:3000"; // local development URL
+
 app.use(
-    cors({
-         origin:process.env.FRONTEND_URL,
-      credentials: true,
+  cors({
+    origin: allowedOrigins, // Allow the correct frontend URL
+    credentials: true, // Allow credentials (cookies, tokens, etc.)
+  })
+);
+
+
+
+// const allowedOrigins = [process.env.FRONTEND_URL, "http://localhost:3000"];
+
+// app.use(
+//   cors({
+//     origin: function (origin, callback) {
+//       callback(null, true); // Temporarily allow all origins
+//     },
+//     credentials: true,
+//   })
+// );
+
+// app.use(
+//   cors({
+//     origin: function (origin, callback) {
+//       // Allow requests from allowed origins or no origin (e.g., for tools like Postman)
+//       if (!origin || allowedOrigins.includes(origin)) {
+//         callback(null, true);
+//       } else {
+//         callback(new Error("Not allowed by CORS"));
+//       }
+//     },
+//     credentials: true,
+//   })
+// );
+
+console.log("Allowed FRONTEND_URL:", process.env.FRONTEND_URL);
+
+// app.use(
+//     cors({
+//          origin:process.env.FRONTEND_URL,
+//       credentials: true,
       
-    })
-  );
+//     })
+//   );
 
 // 👇 Start handling routes here
 const indexRoutes = require("./routes/index.routes");
