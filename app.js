@@ -41,13 +41,29 @@ require("./config")(app);
 //     credentials: true,
 //   })
 // );
+app.use((req, res, next) => {
+  console.log("Request Headers:", req.headers); // Log incoming request headers
+  res.setHeader("Access-Control-Allow-Origin", "*"); // Allow all origins temporarily
+  res.setHeader("Access-Control-Allow-Credentials", "true"); // Allow credentials
+  next();
+});
+
+// Determine allowed origin based on environment
+const allowedOrigins =
+  process.env.NODE_ENV === "production"
+    ? "https://nextleveltravel.netlify.app" // production frontend URL
+    : "http://localhost:3000"; // development frontend URL
+
+// Apply CORS middleware with conditional origin
 app.use(
   cors({
-    origin: "*", // Allow all origins temporarily
-    credentials: true, // Allow credentials
+    origin: allowedOrigins,
+    credentials: true, // Allow cookies or other credentials
   })
 );
+
 app.get("/test", (req, res) => {
+  console.log("Setting CORS headers...");
   res.setHeader("Access-Control-Allow-Origin", "*"); // Allow all origins
   res.setHeader("Access-Control-Allow-Credentials", "true"); // Allow credentials
   res.json({ message: "CORS test route works!" });
